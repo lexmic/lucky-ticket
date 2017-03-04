@@ -4,26 +4,24 @@
 
 
 int main() {
-    char a[80], q;
-    int i, ticket[6], w = 0;
+    char a;
+    int i = 0, ticket[6], ch;
     
     printf("Enter a ticket: ");
-    while ((q = getchar()) != '\n') {
-        if (isdigit(q) != 0) {
-            a[w] = q;
-            ++w; 
+    while ((a = getchar()) != '\n') {
+        if (isdigit(a) != 0) {
+            ch = a;
+            ticket[i] = (ch - 48);
+            i++;
         } else {
-            printf("Error!");
+            printf("Error!\n");
             exit(1);
         }
-        
-    }
-    for (i = 0;i < 6;i++) {
-        ticket[i] = (a[i] - 48); // !
     }
     for (i = 0;i < 6;i++) {
         printf("%d", ticket[i]);
     }
+    printf("\n");
     return 0;
 }
 
