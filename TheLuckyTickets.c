@@ -2,9 +2,9 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-void Sum(int Ticket[6])
+int Sum(int Ticket[6], int Lsum, int Rsum)
 {
-    int i, Lsum = 0, Rsum = 0, substract;
+    Lsum = 0, Rsum = 0;
 
     for (int i = 0; i < 3; ++i) {
         Lsum = Lsum + Ticket[i];
@@ -13,17 +13,21 @@ void Sum(int Ticket[6])
 
     if (Lsum == Rsum) {
         printf("Ваш билет оказался счастливым!\n");
+    }else{
+        printf("Увы, но ваш билет оказался не счастливым :с\n");
     }
+
+    return Ticket;
 }
 
-int Search();
+int Search(int Lsum, int Rsum);
 {
-
+    
 }
 
 int main() {
     char a, y;
-    int i = 0, ticket[6], ch, w;
+    int i = 0, ticket[6], ch, w, lsum = 0, rsum = 0;
     
     printf("Enter a ticket: ");
     while ((a = getchar()) != '\n') {
@@ -41,20 +45,22 @@ int main() {
     }
     printf("\n");*/
 
-    Sum(ticket);
+    w = Sum(ticket, lsum, rsum);
 
-    switch(y){
-        case 'Да':
-        {
-            Search(ticket);
-        }
-        case 'Нет':
-        {
-            printf("Извини, но я всё равно выведу тебе: %d\n", );
-            return 0;
+    printf("Не хотите ли узнать через сколько ваш билет оказался счастливым?\n");
+    printf("1. Да\n");
+    printf("2. Нет\n");
+    while((y = getchar()) != '\n') {
+        switch(y){
+            case '1':  
+                printf("Красава!\n");
+                //Search(ticket);
+                break;
+            case '2':
+                printf("Извини, но я всё равно выведу тебе:\n");
+                break;
         }
     }
-
     return 0;
 }
 
