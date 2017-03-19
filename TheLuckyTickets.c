@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
+#include "ldrlib.h"
 
 int ticket_checker(int Ticket[6])
 {
@@ -82,7 +83,17 @@ int main()
     while((y = getchar()) != '\n') {
         switch(y){
             case 'Y':  
-                {
+                {   
+                    int program_weight = 2;
+                    pred_loadbar_init(program_weight);
+                    printf("\n");
+                    printf("Import user data: \n");
+                    part_process_loadbar(1);
+                    printf("Computing results: \n");
+                    part_process_loadbar(2);
+                    printf("\n");
+                    printf("Loading resuts, please wait: \n");
+                    whole_process_loadbar(program_weight);
                     int finalRes = Search(ticket);
                     printf("Nearest lucky ticket after %d people\n", finalRes);
                 }
