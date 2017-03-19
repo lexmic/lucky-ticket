@@ -2,32 +2,59 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-int Sum(int Ticket[6], int Lsum, int Rsum)
+int ticket_checker(int Ticket[6])
 {
-    Lsum = 0, Rsum = 0;
+    int Lsum = 0, Rsum = 0;
 
     for (int i = 0; i < 3; ++i) {
-        Lsum = Lsum + Ticket[i];
-        Rsum = Rsum + Ticket[i+3];
+        Lsum += Ticket[i];
+        Rsum += Ticket[i + 3];
     }
 
     if (Lsum == Rsum) {
-        printf("Ваш билет оказался счастливым!\n");
-    }else{
-        printf("Увы, но ваш билет оказался не счастливым :с\n");
+        return 1;
+    } else {
+        return 0;
     }
-
-    return Ticket;
 }
 
-int Search(int Lsum, int Rsum);
+int Search(int ticket[6]) 
+{   
+    int checkRes = 0;
+    int peopleCounter = 0;
+
+    while (checkRes != 1) {
+        ticket[5] += 1;
+        ++peopleCounter;
+        if (ticket[5] == 10) {
+            ticket[4] += 1;
+            ticket[5] = 0;
+        } 
+        if (ticket[4] == 10) {
+            ticket[3] += 1;
+            ticket[4] = 0;
+        } 
+        if (ticket[3] == 10) {
+            ticket[2] += 1;
+            ticket[3] = 0;
+        }
+        if (ticket[2] == 10) {
+            ticket[1] += 1;
+            ticket[2] = 0;
+        } 
+        if (ticket[1] == 10) {
+            ticket[0] += 1;
+            ticket[1] = 0;
+        }
+        checkRes = ticket_checker(ticket);
+    }
+    return peopleCounter;
+}
+
+int main() 
 {
-    
-}
-
-int main() {
     char a, y;
-    int i = 0, ticket[6], ch, w, lsum = 0, rsum = 0;
+    int i = 0, ticket[6], ch, checkerRes;
     
     printf("Enter a ticket: ");
     while ((a = getchar()) != '\n') {
@@ -37,27 +64,31 @@ int main() {
             i++;
         } else {
             printf("Error!\n");
-            exit(1);
         }
     }
-    /*for (i = 0;i < 6;i++) {
-        printf("%d", ticket[i]);
+    checkerRes = ticket_checker(ticket);
+    if (checkerRes == 1) {
+        //printf("Ваш билет оказался счастливым!\n");
+        printf("Your ticket is lucky!\n");
+    } else {
+        //printf("Увы, но ваш билет оказался не счастливым :с\n");
+        printf("Sorry, but your ticket isn't lucky\n");
     }
-    printf("\n");*/
 
-    w = Sum(ticket, lsum, rsum);
-
-    printf("Не хотите ли узнать через сколько ваш билет оказался счастливым?\n");
-    printf("1. Да\n");
-    printf("2. Нет\n");
+    /*printf("Не хотите ли узнать следующий счастливый билет (Y/N)\n");
+    printf("Ответ: ");*/
+    printf("Would you like to know nearest lucky ticket (Y/N)?\n");
+    printf("Answer: ");
     while((y = getchar()) != '\n') {
         switch(y){
-            case '1':  
-                printf("Красава!\n");
-                //Search(ticket);
-                break;
-            case '2':
-                printf("Извини, но я всё равно выведу тебе:\n");
+            case 'Y':  
+                {
+                    int finalRes = Search(ticket);
+                    printf("Nearest lucky ticket after %d people\n", finalRes);
+                }
+                    break;
+            case 'N':
+                printf("Finish work\n");
                 break;
         }
     }
