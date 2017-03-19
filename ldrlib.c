@@ -76,7 +76,6 @@ void whole_process_loadbar(size_t ldr_program_weight)
 {
 	int j, g = 0;
 	char *array_ptr = load_memory_init(20);
-	int load_factor = (ldr_program_weight * 100) / 9;
 	
 	for(j = 0; j <= 100; j++) {
 		if (j % 5 == 0) {
@@ -91,8 +90,6 @@ void whole_process_loadbar(size_t ldr_program_weight)
 	printf("\n");
 	printf("Loading sucessfully complete!\n");
 	printf("\n");
-	printf("Successfully loaded processes: %zu\n", ldr_program_weight);
-	printf("Load factor: %d%%\n", load_factor);
 }
 
 
